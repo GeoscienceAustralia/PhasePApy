@@ -203,9 +203,16 @@ class LocalAssociator:
                 # store all necessary parameter in lists
                 radius = []
                 for k, candi in enumerate(candis):
+                    
                     # pass in the radius for map plotting
-                    lon, lat = self.tt_stations_db_1D.query(
+#                   lon, lat = self.tt_stations_db_1D.query(
+#                        Station1D.longitude, Station1D.sta == candi.sta).first()
+
+                    lon,_ = self.tt_stations_db_1D.query(
                         Station1D.longitude, Station1D.sta == candi.sta).first()
+                    lat,_  = self.tt_stations_db_1D.query(
+                        Station1D.latitude, Station1D.sta == candi.sta).first()
+#                    log.debug('lon =  {}, lat = {}'.format(lon,lat))
                     radius.append(
                         (candi.sta, lon, lat, candi.d_km, candi.delta, k))
 
@@ -219,8 +226,11 @@ class LocalAssociator:
                     if len(radius_cb) >= self.nsta_declare:
                         # disp = 1 disp : bool, Set to True to print
                         # convergence messages.
+#                        log.debug(' 233 lon       =  {}, lat = {}'.format(lon,lat))
+#                        log.debug(' 233 radius_cb =  {}          '.format(radius_cb))
                         location = fmin(locating, [lon, lat], radius_cb,
                                         disp=0)
+                        log.debug(' after 233 lon =  {}, lat = {}'.format(lon,lat))
                         residual_minimum = residuals_minimum(location,
                                                              radius_cb)
                         rms_sort.append((location, residual_minimum, k))
