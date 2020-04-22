@@ -27,6 +27,10 @@ pip install git+https://github.com/obspy/obspy.git
 Tests use `pytest`:
 ```bash
 pytest tests/
+
+OR
+
+python3 -m pytest tests/
 ```
 
 # PhasePApy 
