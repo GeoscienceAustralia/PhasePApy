@@ -128,7 +128,8 @@ class AICDSummary:
 
         # trigger the earthquakes
         trigger_ptnl_index = np.where(
-            self.summary[npts_Tma:LEN] > self.thres[npts_Tma:LEN])
+            self.summary[npts_Tma:-npts_Tma] > self.thres[npts_Tma:-npts_Tma])
+
         trigger_ptnl_index = trigger_ptnl_index + np.array(npts_Tma)
         t = np.arange(0, self.stats.npts / self.stats.sampling_rate, dt)
         trigger_ptnl = t[trigger_ptnl_index][0]
